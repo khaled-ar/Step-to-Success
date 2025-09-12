@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Auth\ForgotPasswordRequest;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\ResetPasswordRequest;
-use App\Http\Requests\Auth\VerifyCodeRequest;
-use Illuminate\Http\Request;
+use App\Http\Requests\Auth\{
+    ForgotPasswordRequest,
+    AdminLoginRequest,
+    RegisterRequest,
+    ResetPasswordRequest,
+    StudentLoginRequest,
+    VerifyCodeRequest
+};
 
 class AuthController extends Controller
 {
 
-    public function login(LoginRequest $request) {
+    public function login_admin(AdminLoginRequest $request) {
         return $request->check();
+    }
+
+    public function login_student(StudentLoginRequest $request) {
+        return $request->check();
+    }
+
+    public function register(RegisterRequest $request) {
+        return $request->register();
     }
 
     public function forgot_password(ForgotPasswordRequest $request) {

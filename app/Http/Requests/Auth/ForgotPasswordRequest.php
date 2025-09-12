@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Auth;
 
 use App\Models\User;
-use App\Notifications\EmailVerificationCode;
+use App\Notifications\EmailVerificationCodeNotification;
 use App\Services\Whatsapp;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -31,7 +31,7 @@ class ForgotPasswordRequest extends FormRequest
 
     public function send_code() {
         $user = User::whereEmail($this->email)->first();
-        $user->notify(new EmailVerificationCode());
+        $user->notify(new EmailVerificationCodeNotification());
         return $this->generalResponse(null, 'Email Check', 200);
     }
 }

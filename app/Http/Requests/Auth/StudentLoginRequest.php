@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class LoginRequest extends FormRequest
+class StudentLoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email'],
+            'username' => ['required', 'string'],
             'password' => ['required', 'string']
         ];
     }
@@ -33,7 +33,7 @@ class LoginRequest extends FormRequest
     {
         return Auth::attempt(
             [
-                'email' => $this->email,
+                'username' => $this->username,
                 'password' => $this->password,
             ]
         );
@@ -41,8 +41,9 @@ class LoginRequest extends FormRequest
 
     public function check() {
         if($this->authenticate()) {
-            $user = User::whereEmail($this->email)->first();
+            $user = User::whereUsername($this->username)->first();
             $user['token'] = $user->createToken('auth_token')->plainTextToken;
+            unset($user->email, $user->email_verified_at, $user->role);
             return $this->generalResponse($user, null, 200);
         }
         return $this->generalResponse(null, 'Wrong Credentials', 401);

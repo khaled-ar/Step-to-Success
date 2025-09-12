@@ -2,7 +2,7 @@
 
 return [
     'error_500' => 'Unknown Error!',
-    'error_429' => 'Please try again later due to high volume of requests.',
+    'error_429' => 'Please try again after one minute.',
     'error_404' => 'Not Found!',
     'error_403' => 'Not Allowed',
     'error_400' => 'Bad Request',
