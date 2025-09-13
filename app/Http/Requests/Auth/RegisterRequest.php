@@ -25,7 +25,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'username' => ['required', 'string', 'max:50', 'unique:users,username'],
-            'password' => ['required', 'string', 'confirmed', Password::min(8)
+            'password' => ['required', 'string', Password::min(8)
                     ->max(25)
                     ->numbers()
                     ->symbols()
