@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Ads;
+namespace App\Http\Requests\Admin\Ads;
 
 use App\Models\Ad;
 use Illuminate\Foundation\Http\FormRequest;
@@ -13,7 +13,6 @@ class StoreAdRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        app()->setLocale('ar');
         return true;
     }
 
@@ -25,14 +24,13 @@ class StoreAdRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['required', 'image', 'mimes:png,jpg', 'max:2048'],
-            'whatsapp' => ['required', 'string']
+            'image' => ['required', 'image', 'mimes:png,jpg', 'max:2048']
         ];
     }
 
     public function store() {
-        $ad = Ad::create($this->validated());
-        $ad->update(['image' => Files::moveFile($this->image, "Images/Ads")]);
+        $image = Files::moveFile($this->image, 'Images/Ads');
+        Ad::create(['image' => $image]);
         return $this->generalResponse(null, '201', 201);
     }
 }
