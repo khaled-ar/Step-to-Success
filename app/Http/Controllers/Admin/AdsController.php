@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Ads\StoreAdRequest;
+use App\Models\Ad;
 use Illuminate\Http\Request;
+use App\Traits\Files;
 
 class AdsController extends Controller
 {
@@ -13,7 +15,7 @@ class AdsController extends Controller
      */
     public function index()
     {
-        //
+        return $this->generalResponse(Ad::latest()->get());
     }
 
     /**
@@ -43,8 +45,10 @@ class AdsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Ad $ad)
     {
-        //
+        Files::deleteFile(public_path("Images/Ads/{$ad->image}"));
+        $ad->delete();
+        return $this->generalResponse(null, 'Deleted Successfully', 200);
     }
 }
