@@ -4,7 +4,6 @@ namespace App\Http\Requests\Student;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules\Password;
 
 class UpdatePasswordRequest extends FormRequest
 {
@@ -24,12 +23,7 @@ class UpdatePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['string', 'confirmed', Password::min(8)
-                    ->max(25)
-                    ->numbers()
-                    ->symbols()
-                    ->mixedCase()
-                    ->uncompromised()],
+            'password' => ['size:4', 'integer'],
         ];
     }
 

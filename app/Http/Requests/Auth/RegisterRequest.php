@@ -4,7 +4,6 @@ namespace App\Http\Requests\Auth;
 
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -25,12 +24,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'username' => ['required', 'string', 'max:50', 'unique:users,username'],
-            'password' => ['required', 'string', Password::min(8)
-                    ->max(25)
-                    ->numbers()
-                    ->symbols()
-                    ->mixedCase()
-                    ->uncompromised()],
+            'password' => ['required', 'regex:/^\d{4}$/'],
         ];
     }
 
