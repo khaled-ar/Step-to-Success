@@ -58,4 +58,11 @@ class User extends Authenticatable
         return $this->image ? asset("Images/Profiles") . '/' . $this->image : null;
     }
 
+    public function favorite() {
+        return $this->hasMany(Favorite::class);
+    }
+
+    public function subscriptions() {
+        return $this->hasMany(Subscription::class)->with('course');
+    }
 }

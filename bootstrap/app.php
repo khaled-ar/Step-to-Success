@@ -1,5 +1,6 @@
 <?php
 
+use App\Jobs\UpdateSubscriptionsStatus;
 use Illuminate\Foundation\{
     Application,
     Configuration\Exceptions,
@@ -17,6 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Console\Scheduling\Schedule;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -84,4 +86,6 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 422);
             }
         });
+    })->withSchedule(function (Schedule $schedule) {
+        $schedule->job(new UpdateSubscriptionsStatus)->everySecond();
     })->create();

@@ -10,6 +10,7 @@ use App\Http\Requests\Auth\{
     StudentLoginRequest,
     VerifyCodeRequest
 };
+use App\Traits\Files;
 
 class AuthController extends Controller
 {
@@ -46,5 +47,12 @@ class AuthController extends Controller
         $user = request()->user();
         $user->tokens()->delete();
         return $this->generalResponse(null, 'logout_success', 200);
+    }
+
+    public function delete_account() {
+        $user = request()->user();
+        Files::deleteFile(public_path("Images/Profiles/{$user->image}"));
+        $user->delete();
+        return $this->generalResponse(null, 'Deleted Successfully', 200);
     }
 }

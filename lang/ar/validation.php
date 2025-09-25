@@ -214,6 +214,14 @@ return [
         'updated_at'               => 'تاريخ التحديث',
         'whatsapp'                 => 'رقم الواتساب',
         'description'              => 'الوصف',
-        'username'                 => 'اسم المستخدم'
+        'username'                 => 'اسم المستخدم',
+        'type'                     => 'الصنف',
+        'course_id'                => 'معرف المادة',
+        'unit_id'                  => 'معرف الوحدة',
+        'file'                     => 'الملف',
+        'question_number'          => 'رقم السؤال',
+        'lesson_id'                => 'معرف الدرس',
+        'mark'                     => 'العلامة',
+        'transfer_image'           => 'صورة اشعار التحويل'
     ],
 ];

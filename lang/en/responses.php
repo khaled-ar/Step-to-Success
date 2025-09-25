@@ -14,4 +14,9 @@ return [
     'Email Check' => 'Verification code sent, please check your email.',
     'Wrong Code' => 'Wrong Code!',
     'logout_success' => 'Logout Done Successfully',
+    'You already have a subscription' => 'You already have a subscription',
+    'The request has been sent to the manager successfully. Please wait for the result.' => 'The request has been sent to the manager successfully. Please wait for the result.',
+    'Subscription cannot be confirmed because the subscription is currently active.' => 'Subscription cannot be confirmed because the subscription is currently active.',
+    'The subscription cannot be deleted because it is under review by the administrator.' => 'The subscription cannot be deleted because it is under review by the administrator.',
+    'The subscription cannot be deleted because it is currently active.' => 'The subscription cannot be deleted because it is currently active.'
 ];
