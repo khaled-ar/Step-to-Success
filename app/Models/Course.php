@@ -13,7 +13,6 @@ class Course extends Model
         'updated_at',
     ];
 
-
     protected static function booted()
     {
         static::retrieved(function ($course) {

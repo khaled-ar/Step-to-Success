@@ -45,7 +45,8 @@ class FetchDataController extends Controller
     }
 
     public function lessons() {
-        return $this->generalResponse(Lesson::whereUnitId(request('unit_id'))->get());
+        $lessons = Lesson::whereUnitId(request('unit_id'))->get();
+        return $this->generalResponse($lessons->makeHidden('unit'));
     }
 
 }
