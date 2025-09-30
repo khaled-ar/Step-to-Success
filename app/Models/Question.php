@@ -16,11 +16,17 @@ class Question extends Model
 
     protected $appends = [
         'image_url',
+        'in_favorite'
     ];
 
     public function getImageUrlAttribute()
     {
         return $this->image ? asset("Images/Questions") . '/' . $this->image : null;
+    }
+
+    public function getInFavoriteAttribute()
+    {
+        return in_array($this->id, request()->user()->favorite()->pluck('question_id')->toArray());
     }
 
     public function answers() {
