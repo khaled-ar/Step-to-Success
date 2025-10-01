@@ -23,7 +23,7 @@ class UpdatePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'password' => ['size:4', 'integer'],
+            'password' => ['required', 'regex:/^\d{4}$/'],
         ];
     }
 
