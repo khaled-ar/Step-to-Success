@@ -54,7 +54,9 @@ class QuestionsController extends Controller
     public function destroy(Question $question)
     {
         if($question->image) {
-            Files::deleteFile(public_path("Images/Questions/{$question->image}"));
+            foreach(explode('|', $question->image) as $image) {
+                Files::deleteFile(public_path("Images/Questions/{$image}"));
+            }
         }
         $question->delete();
         return $this->generalResponse(null, 'Deleted Successfully', 200);

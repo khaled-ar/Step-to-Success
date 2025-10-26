@@ -26,15 +26,22 @@ class StoreAnswersRequest extends FormRequest
         return [
             'question_id' => ['required', 'integer', 'exists:questions,id'],
             'is_correct' => ['boolean'],
-            'image' => ['required_without:text', 'image', 'mimes:png,jpg', 'max:2048'],
-            'text' => ['required_without:image', 'string', 'max:1000'],
+            'images' => ['required_without:text', 'array'],
+            'images.*' => ['image' ,'mimes:png,jpg', 'max:2048'],
+            'text' => ['required_without:images', 'string', 'max:1000'],
         ];
     }
 
     public function store() {
         $data = $this->validated();
-        if($this->file('image')) {
-            $data['image'] = Files::moveFile($this->image, 'Images/Answers');
+        if($this->images) {
+            $images = $this->images;
+            $names = [];
+            foreach($images as $image) {
+                $names[] = Files::moveFile($image, 'Images/Answers');
+            }
+            unset($data['images']);
+            $data['image'] = implode('|', $names);
         }
         Answer::create($data);
         return $this->generalResponse(null, '201', 201);
