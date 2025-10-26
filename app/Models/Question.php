@@ -21,7 +21,12 @@ class Question extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset("Images/Questions") . '/' . $this->image : null;
+        $images = explode('|', $this->image);
+        $images_url = [];
+        foreach($images as $image) {
+            $images_url[] = asset('Images/Questions') . "/$image";
+        }
+        return $images_url;
     }
 
     public function getInFavoriteAttribute()

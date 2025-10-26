@@ -28,16 +28,23 @@ class StoreQuestionRequest extends FormRequest
             'question_number' => ['required', 'integer'],
             'type' => ['required', 'string', 'in:automated,editorial'],
             'mark' => ['required', 'numeric'],
-            'image' => ['required_without:text', 'image', 'mimes:png,jpg', 'max:2048'],
-            'text' => ['required_without:image', 'string', 'max:1000'],
+            'images' => ['required_without:text', 'array'],
+            'images.*' => ['image' ,'mimes:png,jpg', 'max:2048'],
+            'text' => ['required_without:images', 'string', 'max:1000'],
             'note' => ['string', 'max:1000'],
         ];
     }
 
     public function store() {
         $data = $this->validated();
-        if($this->file('image')) {
-            $data['image'] = Files::moveFile($this->image, 'Images/Questions');
+        if($this->images) {
+            $images = $this->images;
+            $names = [];
+            foreach($images as $image) {
+                $names[] = Files::moveFile($image, 'Images/Questions');
+            }
+            unset($data['images']);
+            $data['image'] = implode('|', $names);
         }
         $qeusetion = Question::create($data);
         return $this->generalResponse($qeusetion->id, '201', 201);
