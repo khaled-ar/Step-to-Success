@@ -34,7 +34,7 @@ class SubscriptionsController extends Controller
         if($subscription->status == 'active') {
             return $this->generalResponse(null, 'Subscription cannot be confirmed because the subscription is currently active.', 400);
         }
-        $image = $request->validate(['transfer_image' => ['required', 'image', 'mimes:png,jpg', 'max:2048']]);
+        $image = $request->validate(['transfer_image' => ['required', 'image', 'mimes:png,jpg', 'max:6144']]);
         Files::deleteFile(public_path("Images/Payments/{$subscription->transfer_image}"));
         $image = Files::moveFile($image['transfer_image'], 'Images/Payments');
         $subscription->update(['transfer_image' => $image, 'status' => 'pending']);
