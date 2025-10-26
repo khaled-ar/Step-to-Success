@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CoursesAd;
 use Illuminate\Http\Request;
+use App\Traits\Files;
+
 
 class CoursesAdsController extends Controller
 {
@@ -11,7 +14,7 @@ class CoursesAdsController extends Controller
      */
     public function index()
     {
-        //
+        return $this->generalResponse(CoursesAd::whereCourseId(request('course_id'))->latest()->get());
     }
 
     /**
@@ -19,7 +22,10 @@ class CoursesAdsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['image' => ['required', 'image', 'mimes:png,jpg', 'max:2048']]);
+        $image = Files::moveFile($request->image, 'Images/Ads');
+        CoursesAd::create(['image' => $image, 'course_id' => $request->course_id]);
+        return $this->generalResponse(null, '201', 201);
     }
 
     /**
@@ -41,8 +47,10 @@ class CoursesAdsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(CoursesAd $courses_ad)
     {
-        //
+        Files::deleteFile(public_path("Images/Ads/{$courses_ad->image}"));
+        $courses_ad->delete();
+        return $this->generalResponse(null, 'Deleted Successfully', 200);
     }
 }
