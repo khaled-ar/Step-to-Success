@@ -40,7 +40,12 @@ class CoursesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'name' => ['string', 'max:100'],
+            'price' => ['numeric']
+        ]);
+        Course::whereId($id)->update($data);
+        return $this->generalResponse(null, 'Updated Successfully');
     }
 
     /**
