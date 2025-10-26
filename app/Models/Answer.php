@@ -20,7 +20,15 @@ class Answer extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset("Images/Answers") . '/' . $this->image : null;
+        if($this->image == null) {
+            return null;
+        }
+        $images = explode('|', $this->image);
+        $images_url = [];
+        foreach($images as $image) {
+            $images_url[] = asset('Images/Answers') . "/$image";
+        }
+        return $images_url;
     }
 
     public function question() {

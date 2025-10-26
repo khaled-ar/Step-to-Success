@@ -49,7 +49,9 @@ class AnswersController extends Controller
     public function destroy(Answer $answer)
     {
         if($answer->image) {
-            Files::deleteFile(public_path("Images/Answers/{$answer->image}"));
+            foreach(explode('|', $answer->image) as $image) {
+                Files::deleteFile(public_path("Images/Answers/{$image}"));
+            }
         }
         $answer->delete();
         return $this->generalResponse(null, 'Deleted Successfully', 200);

@@ -21,6 +21,9 @@ class Question extends Model
 
     public function getImageUrlAttribute()
     {
+        if($this->image == null) {
+            return null;
+        }
         $images = explode('|', $this->image);
         $images_url = [];
         foreach($images as $image) {
