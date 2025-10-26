@@ -12,6 +12,7 @@ Route::middleware('lang')->group(function() {
         include(base_path('routes/Student/favorite.php'));
         include(base_path('routes/Student/notes.php'));
         include(base_path('routes/Student/fetch_data.php'));
+        include(base_path('routes/courses_ads.php'));
 
         Route::prefix('admin')->middleware('admin')->group(function() {
             include(base_path('routes/Admin/home.php'));
