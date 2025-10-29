@@ -37,8 +37,8 @@ class SubscribeRequest extends FormRequest
         $data = $this->validated();
 
         $subscription = Subscription::whereUserId($user->id)
-            ->whereSubscribable('all_courses')
-            ->where('status', '<>', 'inactive')
+            ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
+            ->whereIn('status', ['active', 'pending'])
             ->first();
         if($subscription) {
             return $this->generalResponse(null, 'You already have a subscription', 400);
@@ -47,7 +47,7 @@ class SubscribeRequest extends FormRequest
         if($this->subscribable == 'single_course') {
             $subscription = Subscription::whereUserId($user->id)
                 ->whereCourseId($this->course_id)
-                ->where('status', '<>', 'inactive')
+                ->whereIn('status', ['active', 'pending'])
                 ->first();
             if($subscription) {
                 return $this->generalResponse(null, 'You already have a subscription', 400);

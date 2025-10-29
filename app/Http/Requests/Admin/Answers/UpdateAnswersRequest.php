@@ -25,17 +25,17 @@ class UpdateAnswersRequest extends FormRequest
     {
         return [
             'is_correct' => ['boolean'],
-            'image' => ['image', 'mimes:png,jpg', 'max:2048'],
+            //'image' => ['image', 'mimes:png,jpg', 'max:2048'],
             'text' => ['string', 'max:1000'],
         ];
     }
 
     public function update($answer) {
         $data = $this->validated();
-        if($this->file('image')) {
-            $data['image'] = Files::moveFile($this->image, 'Images/Answers');
-            Files::deleteFile(public_path("Images/Answers/{$answer->image}"));
-        }
+        // if($this->file('image')) {
+        //     $data['image'] = Files::moveFile($this->image, 'Images/Answers');
+        //     Files::deleteFile(public_path("Images/Answers/{$answer->image}"));
+        // }
         $answer->update($data);
         return $this->generalResponse(null, 'Updated Successfully', 200);
     }

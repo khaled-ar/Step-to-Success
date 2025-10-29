@@ -18,15 +18,15 @@ class FetchDataController extends Controller
             ->get();
 
         $subscription = Subscription::whereUserId(request()->user()->id)
-            ->whereSubscribable('all_courses')
-            ->where('status', '<>', 'inactive')
+            ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
+            ->whereIn('status', ['active', 'pending'])
             ->first();
 
         if(!$subscription) {
             foreach($courses as $course) {
                 $subscription_course = Subscription::whereUserId(request()->user()->id)
                 ->whereCourseId($course->id)
-                ->where('status', '<>', 'inactive')
+                ->whereIn('status', ['active', 'pending'])
                 ->first();
                 $course['buy_btn'] = $subscription_course ? 0 : 1;
             }

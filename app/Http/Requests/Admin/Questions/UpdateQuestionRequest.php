@@ -25,7 +25,7 @@ class UpdateQuestionRequest extends FormRequest
         return [
             'question_number' => ['integer'],
             'mark' => ['numeric'],
-            'image' => ['image', 'mimes:png,jpg', 'max:2048'],
+            //'image' => ['image', 'mimes:png,jpg', 'max:2048'],
             'text' => ['string', 'max:1000'],
             'note' => ['string', 'max:1000'],
         ];
@@ -33,10 +33,10 @@ class UpdateQuestionRequest extends FormRequest
 
     public function update($question) {
         $data = $this->validated();
-        if($this->file('image')) {
-            $data['image'] = Files::moveFile($this->image, 'Images/Questions');
-            Files::deleteFile(public_path("Images/Questions/{$question->image}"));
-        }
+        // if($this->file('image')) {
+        //     $data['image'] = Files::moveFile($this->image, 'Images/Questions');
+        //     Files::deleteFile(public_path("Images/Questions/{$question->image}"));
+        // }
         $question->update($data);
         return $this->generalResponse(null, 'Updated Successfully', 200);
     }
