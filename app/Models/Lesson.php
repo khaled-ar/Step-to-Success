@@ -41,7 +41,7 @@ class Lesson extends Model
             return  $this->unit->course->type == $has_all_courses_subscription->type ? 1 : 0;
         }
 
-        $subscriptions = $user->subscriptions()->whereStatus('active')->whereSubscribable('single_course')->get();
+        $subscriptions = $user->subscriptions()->whereStatus('active')->whereIn('subscribable', ['single_course', 'مادة واحدة'])->get();
         foreach($subscriptions as $subscription) {
             if($this->unit->course_id == $subscription->course->id) {
                 return 1;
