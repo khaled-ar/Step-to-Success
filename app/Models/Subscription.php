@@ -22,7 +22,7 @@ class Subscription extends Model
 
     protected $appends = [
         'transfer_image_url',
-    ];‍
+    ];
 
     public function getTransferImageUrlAttribute()
     {
