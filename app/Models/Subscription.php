@@ -22,7 +22,7 @@ class Subscription extends Model
 
     protected $appends = [
         'transfer_image_url',
-    ];
+    ];‍
 
     public function getTransferImageUrlAttribute()
     {
@@ -32,7 +32,8 @@ class Subscription extends Model
     protected static function booted()
     {
         static::retrieved(function ($subscription) {
-            $subscription->setAttribute('subscribable', $subscription->subscribable == 'single_course' ? 'مادة واحدة' : 'جميع المواد');
+            $subscription->setAttribute('subscribable', in_array($subscription->subscribable, ['single_course', 'مادة واحدة'])
+            ? 'مادة واحدة' : 'جميع المواد');
         });
     }
 
