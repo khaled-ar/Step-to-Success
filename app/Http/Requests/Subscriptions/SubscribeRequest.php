@@ -36,12 +36,24 @@ class SubscribeRequest extends FormRequest
         $user = $this->user();
         $data = $this->validated();
 
-        $subscription = Subscription::whereUserId($user->id)
-            ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
-            ->whereIn('status', ['active', 'pending'])
-            ->first();
-        if($subscription) {
-            return $this->generalResponse(null, 'You already have a subscription', 400);
+        if($this->subscribable == 'all_courses') {
+            if(in_array(request('type'), ['scientific', 'علمي'])) {
+                $subscription = Subscription::whereUserId(request()->user()->id)
+                    ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
+                    ->whereIn('status', ['active', 'pending'])
+                    ->whereIn('type', ['scientific', 'علمي'])
+                    ->first();
+            } else {
+                $subscription = Subscription::whereUserId(request()->user()->id)
+                    ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
+                    ->whereIn('status', ['active', 'pending'])
+                    ->whereIn('type', ['literary', 'ادبي'])
+                    ->first();
+            }
+
+            if($subscription) {
+                return $this->generalResponse(null, 'You already have a subscription', 400);
+            }
         }
 
         if($this->subscribable == 'single_course') {

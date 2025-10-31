@@ -17,10 +17,19 @@ class FetchDataController extends Controller
             ->whereType(request('type'))
             ->get();
 
-        $subscription = Subscription::whereUserId(request()->user()->id)
-            ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
-            ->whereIn('status', ['active', 'pending'])
-            ->first();
+        if(in_array(request('type'), ['scientific', 'علمي'])) {
+            $subscription = Subscription::whereUserId(request()->user()->id)
+                ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
+                ->whereIn('status', ['active', 'pending'])
+                ->whereIn('type', ['scientific', 'علمي'])
+                ->first();
+        } else {
+            $subscription = Subscription::whereUserId(request()->user()->id)
+                ->whereIn('subscribable', ['all_courses', 'جميع المواد'])
+                ->whereIn('status', ['active', 'pending'])
+                ->whereIn('type', ['literary', 'ادبي'])
+                ->first();
+        }
 
         if(!$subscription) {
             foreach($courses as $course) {
