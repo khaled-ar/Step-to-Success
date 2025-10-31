@@ -35,10 +35,10 @@ class Lesson extends Model
                 $query->where('subscribable', 'all_courses')
                     ->orWhere('subscribable', 'جميع المواد');
             })
-            ->first();
+            ->pluck('type')->toArray();
 
         if($has_all_courses_subscription) {
-            return  $this->unit->course->type == $has_all_courses_subscription->type ? 1 : 0;
+            return (int)in_array($this->unit->course->type, $has_all_courses_subscription);
         }
 
         $subscriptions = $user->subscriptions()->whereStatus('active')->whereIn('subscribable', ['single_course', 'مادة واحدة'])->get();
