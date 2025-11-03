@@ -25,8 +25,8 @@ class StorePreQuestionRequest extends FormRequest
     {
         return [
             'course_id' => ['required', 'integer', 'exists:courses,id'],
-            'title' => ['required', 'string', 'max:100'],
-            'file' => ['required', 'file', 'mimes:png,jpg,pdf', 'max:4096'],
+            'title' => ['required', 'string'],
+            'file' => ['required', 'file', 'mimes:png,jpg,pdf'],
         ];
     }
 

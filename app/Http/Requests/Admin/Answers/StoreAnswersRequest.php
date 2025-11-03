@@ -27,8 +27,8 @@ class StoreAnswersRequest extends FormRequest
             'question_id' => ['required', 'integer', 'exists:questions,id'],
             'is_correct' => ['boolean'],
             'images' => ['required_without:text', 'array'],
-            'images.*' => ['image' ,'mimes:png,jpg', 'max:2048'],
-            'text' => ['required_without:images', 'string', 'max:1000'],
+            'images.*' => ['image' ,'mimes:png,jpg'],
+            'text' => ['required_without:images', 'string'],
         ];
     }
 

@@ -26,7 +26,7 @@ class UpdateAnswersRequest extends FormRequest
         return [
             'is_correct' => ['boolean'],
             //'image' => ['image', 'mimes:png,jpg', 'max:2048'],
-            'text' => ['string', 'max:1000'],
+            'text' => ['string'],
         ];
     }
 

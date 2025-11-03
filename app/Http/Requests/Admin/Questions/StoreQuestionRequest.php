@@ -29,9 +29,9 @@ class StoreQuestionRequest extends FormRequest
             'type' => ['required', 'string', 'in:automated,editorial'],
             'mark' => ['required', 'numeric'],
             'images' => ['required_without:text', 'array'],
-            'images.*' => ['image' ,'mimes:png,jpg', 'max:2048'],
-            'text' => ['required_without:images', 'string', 'max:1000'],
-            'note' => ['string', 'max:1000'],
+            'images.*' => ['image' ,'mimes:png,jpg'],
+            'text' => ['required_without:images', 'string'],
+            'note' => ['string'],
         ];
     }
 

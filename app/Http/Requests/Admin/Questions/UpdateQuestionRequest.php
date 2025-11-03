@@ -26,8 +26,8 @@ class UpdateQuestionRequest extends FormRequest
             'question_number' => ['integer'],
             'mark' => ['numeric'],
             //'image' => ['image', 'mimes:png,jpg', 'max:2048'],
-            'text' => ['string', 'max:1000'],
-            'note' => ['string', 'max:1000'],
+            'text' => ['string'],
+            'note' => ['string'],
         ];
     }
 
