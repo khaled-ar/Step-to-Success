@@ -41,10 +41,6 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $exceptions->render(function (Exception|Throwable $e, Request $request) {
 
-            // return response()->json([
-            //     get_class($e)
-            // ]);
-
             if ($e instanceof ThrottleRequestsException) {
                 return response()->json([
                     'message' => __('responses.error_429'),
@@ -69,11 +65,11 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], 400);
             }
 
-            // if ($e instanceof QueryException) {
-            //     return response()->json([
-            //         'message' => __('responses.error_500'),
-            //     ], 500);
-            // }
+            if ($e instanceof QueryException) {
+                return response()->json([
+                    'message' => __('responses.error_500'),
+                ], 500);
+            }
 
             if ($e instanceof ValidationException) {
                 $res_errors = collect($e->errors())

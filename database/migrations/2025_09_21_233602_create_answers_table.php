@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('image')->nullable();
-            $table->string('text')->nullable();
+            $table->text('text')->nullable();
             $table->boolean('is_correct');
             $table->timestamps();
         });

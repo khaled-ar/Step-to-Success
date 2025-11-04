@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('type', ['automated', 'editorial']);
             $table->float('mark', 2);
             $table->string('image')->nullable();
-            $table->string('text')->nullable();
+            $table->text('text')->nullable();
             $table->string('note')->nullable();
             $table->timestamps();
         });
