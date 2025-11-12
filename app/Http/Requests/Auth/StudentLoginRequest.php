@@ -42,6 +42,7 @@ class StudentLoginRequest extends FormRequest
     public function check() {
         if($this->authenticate()) {
             $user = User::whereUsername($this->username)->first();
+            $user->tokens()->delete();
             $user['token'] = $user->createToken('auth_token')->plainTextToken;
             unset($user->email, $user->email_verified_at, $user->role);
             return $this->generalResponse($user, null, 200);
